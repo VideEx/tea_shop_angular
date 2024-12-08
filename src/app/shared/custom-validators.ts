@@ -10,6 +10,5 @@ export class CustomValidators {
   static addressValidator (control: AbstractControl): ValidationErrors | null {
     const result = /^[\w\sА-Яа-я\/-]+$/.test(control.value);
     return result ? null : {address: {value: control.value}}
-
   }
 }

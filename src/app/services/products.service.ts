@@ -1,23 +1,26 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {IProduct} from "../types/product.interface";
-import {map, Observable,
+import {ProductType} from "../types/product.type";
+import {
+  map, Observable,
 } from "rxjs";
-import {IOrder} from "../types/order.interface";
+import {OrderType} from "../types/order.type";
+import {ProductComponent} from "../components/pages/product/product.component";
 
 @Injectable()
 export class ProductsService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  getProducts(searchString?: string):Observable<IProduct[]> {
+  getProducts(searchString?: string): Observable<ProductType[]> {
     let params = new HttpParams();
     if (searchString) {
       params = params.append('search', searchString);
     }
-    return this.http.get<IProduct[]>('https://testologia.ru/tea', {params})
+    return this.http.get<ProductType[]>('https://testologia.ru/tea', {params})
       .pipe(
-        map( products => {
+        map(products => {
           if (Array.isArray(products)) {
             return products;
           }
@@ -26,11 +29,11 @@ export class ProductsService {
       );
   }
 
-  getProduct(id: number): Observable<IProduct> {
-    return this.http.get<IProduct>(`https://testologia.ru/tea?id=${id}`)
+  getProduct(id: number): Observable<ProductType> {
+    return this.http.get<ProductType>(`https://testologia.ru/tea?id=${id}`)
   }
 
-  createOrder(data: IOrder): Observable<{success: number, message?: string}> {
-    return this.http.post<{success: number, message?: string}>(`https://testologia.ru/order-tea`, data);
+  createOrder(data: OrderType): Observable<{ success: number, message?: string }> {
+    return this.http.post<{ success: number, message?: string }>(`https://testologia.ru/order-tea`, data);
   }
 }

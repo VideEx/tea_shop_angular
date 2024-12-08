@@ -1,7 +1,6 @@
-export interface IOrder {
-
+export type OrderType = {
   name: string | null,
-    last_name: string | null,
+  last_name: string | null,
   phone: string | null,
   country: string | null,
   zip: string | null,
